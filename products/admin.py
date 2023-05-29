@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Review
+from .models import Product, Review, Category
 from django.utils import timezone
 
 class ReviewInline(admin.TabularInline):
@@ -62,6 +62,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(Category)
 
 admin.site.site_title = "My Admin Title"
 admin.site.site_header = "My Admin Portal"
