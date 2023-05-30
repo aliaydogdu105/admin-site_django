@@ -27,14 +27,15 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('My section', {
             "classes" : ("collapse", ),
-            "fields" : ("description",),
+            "fields" : ("description","categories"),
             'description' : "You can use this section for optionals settings"
         })
     )
 
+    filter_horizontal = ("categories",)
     actions = ("is_in_stock", )
     
-    
+
     def is_in_stock(self, request, queryset):
         count = queryset.update(is_in_stock=True)
         self.message_user(request, f"{count} types of products have been added to the stock.")
