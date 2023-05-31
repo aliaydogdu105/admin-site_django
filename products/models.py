@@ -18,6 +18,7 @@ class Product(models.Model):
     is_in_stock = models.BooleanField(default=True)
     slug = models.SlugField(null=True, blank=True)
     categories = models.ManyToManyField(Category, related_name="products")
+    product_img = models.ImageField(null=True, blank=True, default="defaults/product.png", upload_to="product/")
 
     class Meta:
         verbose_name = "Product"
