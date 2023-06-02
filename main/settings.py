@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 
     #my apps
     'products',
+    'django_admin_listfilter_dropdown',
+    'rangefilter',
+    'import_export',
 ]
 
 MIDDLEWARE = [

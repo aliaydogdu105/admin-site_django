@@ -2,6 +2,10 @@ from django.contrib import admin
 from .models import Product, Review, Category
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from django_admin_listfilter_dropdown.filters import RelatedDropdownFilter
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
+from .resources import ReviewResource
+from import_export.admin import ImportExportModelAdmin
 
 class ReviewInline(admin.TabularInline):
     model = Review
@@ -11,7 +15,7 @@ class ReviewInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "create_date", "is_in_stock", "update_date", "added_days_ago", "how_many_reviews","bring_img_to_list")
     list_editable = ("is_in_stock",)
-    list_filter = ("is_in_stock", "create_date")
+    list_filter = ("is_in_stock", ("create_date", DateTimeRangeFilter))
     ordering = ("name",)
     search_fields = ("name",)
     prepopulated_fields = {"slug" : ("name",)}
@@ -66,15 +70,15 @@ class ProductAdmin(admin.ModelAdmin):
     bring_img_to_list.short_description = "product image"
 
 
-class ReviewAdmin(admin.ModelAdmin):
+class ReviewAdmin(ImportExportModelAdmin):
     list_display = ('__str__', 'created_date', 'is_released')
     list_per_page = 50
     raw_id_fields = ('product',) 
     # # list_filter = ("product",)
-    # list_filter = (
-    #      ('product', RelatedDropdownFilter),
-    # )
-    # resource_class = ReviewResource
+    list_filter = (
+         ('product', RelatedDropdownFilter),
+    )
+    resource_class = ReviewResource
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review, ReviewAdmin)
