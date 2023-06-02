@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_admin_listfilter_dropdown',
     'rangefilter',
     'import_export',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,11 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+CKEDITOR_CONFIGS = {
+        'default' : {
+            'toolbar' : 'full',
+            'height' : 700,
+            'width' : 1000
+        }
+    }
